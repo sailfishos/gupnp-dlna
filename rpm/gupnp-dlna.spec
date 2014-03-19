@@ -16,6 +16,8 @@ BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: gupnp-devel
 BuildRequires: gupnp-av-devel
 BuildRequires: libxml2-devel
+BuildRequires: vala-devel
+BuildRequires: vala-tools
 
 %description
 GUPnP is an object-oriented open source framework for creating UPnP
@@ -70,3 +72,7 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/gir-1.0/GUPnPDLNA-2.0.gir
 %{_datadir}/gir-1.0/GUPnPDLNAGst-2.0.gir
 %{_includedir}/%{name}-2.0/
+%{_datadir}/vala/vapi/gupnp-dlna-2.0.deps
+%{_datadir}/vala/vapi/gupnp-dlna-2.0.vapi
+%{_datadir}/vala/vapi/gupnp-dlna-gst-2.0.deps
+%{_datadir}/vala/vapi/gupnp-dlna-gst-2.0.vapi
