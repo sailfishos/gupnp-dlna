@@ -233,7 +233,7 @@ AS_IF([test "x$found_introspection" = "xyes"],
 AS_IF([test "x$VAPIGEN" != "x"], [have_vapigen=yes])
 AM_CONDITIONAL([HAVE_VAPIGEN], [test "x$VAPIGEN" != "x"])
 
-GTK_DOC_CHECK([1.11],[--flavour no-tmpl])
+dnl GTK_DOC_CHECK([1.11],[--flavour no-tmpl])
 # for fixxref
 GLIB_PREFIX="`$PKG_CONFIG --variable=prefix glib-2.0`"
 AC_SUBST(GLIB_PREFIX)
@@ -252,11 +252,6 @@ gupnp-dlna-2.0.pc
 gupnp-dlna-metadata-2.0.pc
 gupnp-dlna-gst-2.0.pc
 gupnp-dlna-gst-legacy-2.0.pc
-doc/Makefile
-doc/version.xml
-doc/gupnp-dlna/Makefile
-doc/gupnp-dlna-metadata/Makefile
-doc/gupnp-dlna-gst/Makefile
 vala/Makefile
 ])
 AC_CONFIG_FILES([tests/test-discoverer.sh],

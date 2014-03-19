@@ -24,11 +24,6 @@ test -n "$srcdir" || srcdir=.
 olddir=`pwd`
 cd "$srcdir"
 
-GTKDOCIZE=`which gtkdocize`
-if test -z $GTKDOCIZE; then
-        echo "*** No GTK-Doc found, please install it ***"
-        exit 1
-fi
 
 AUTORECONF=`which autoreconf`
 if test -z $AUTORECONF; then
@@ -38,7 +33,13 @@ fi
 
 mkdir -p m4
 
-gtkdocize || exit $?
+GTKDOCIZE=`which gtkdocize`
+if test -z $GTKDOCIZE; then
+        echo "*** No GTK-Doc found, please install it ***"
+else
+        gtkdocize || exit $?
+fi
+
 autoreconf --force --install --verbose || exit $?
 
 cd "$olddir"
