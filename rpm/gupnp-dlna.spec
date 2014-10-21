@@ -11,8 +11,8 @@ Source0:       %{name}-%{version}.tar.gz
 BuildRequires: glib2-devel
 BuildRequires: gobject-introspection-devel >= 1.36
 BuildRequires: gssdp-devel
-BuildRequires: pkgconfig(gstreamer-1.0)
-BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
+BuildRequires: pkgconfig(gstreamer-0.10)
+BuildRequires: pkgconfig(gstreamer-plugins-base-0.10)
 BuildRequires: gupnp-devel
 BuildRequires: gupnp-av-devel
 BuildRequires: libxml2-devel
@@ -40,7 +40,10 @@ use %{name}.
 %setup -q -n %{name}-%{version}/%{name}
 
 %build
-%autogen --disable-static
+%autogen --disable-static \
+         --disable-gstreamer-metadata-backend \
+         --enable-legacy-gstreamer-metadata-backend \
+         --with-default-metadata-backend=gstreamer-legacy
 
 make %{?_smp_mflags} V=1
 
@@ -58,21 +61,18 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %doc AUTHORS COPYING README TODO
 %{_bindir}/gupnp-dlna*
 %{_libdir}/lib*.so.*
-%{_libdir}/gupnp-dlna/libgstreamer.so
 %{_libdir}/girepository-1.0/GUPnPDLNA-2.0.typelib
-%{_libdir}/girepository-1.0/GUPnPDLNAGst-2.0.typelib
 %{_datadir}/%{name}-2.0/
 
 %files devel
 %{_libdir}/lib*.so
-%{_libdir}/gupnp-dlna/libgstreamer.so
+%{_libdir}/gupnp-dlna/libgstreamer-legacy.so
 %{_libdir}/pkgconfig/%{name}-2.0.pc
-%{_libdir}/pkgconfig/%{name}-gst-2.0.pc
+%{_libdir}/pkgconfig/%{name}-gst-legacy-2.0.pc
 %{_libdir}/pkgconfig/%{name}-metadata-2.0.pc
 %{_datadir}/gir-1.0/GUPnPDLNA-2.0.gir
-%{_datadir}/gir-1.0/GUPnPDLNAGst-2.0.gir
 %{_includedir}/%{name}-2.0/
 %{_datadir}/vala/vapi/gupnp-dlna-2.0.deps
 %{_datadir}/vala/vapi/gupnp-dlna-2.0.vapi
-%{_datadir}/vala/vapi/gupnp-dlna-gst-2.0.deps
-%{_datadir}/vala/vapi/gupnp-dlna-gst-2.0.vapi
+%{_datadir}/vala/vapi/gupnp-dlna-gst-legacy-2.0.deps
+%{_datadir}/vala/vapi/gupnp-dlna-gst-legacy-2.0.vapi
