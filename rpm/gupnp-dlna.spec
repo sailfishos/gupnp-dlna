@@ -1,5 +1,5 @@
 Name:          gupnp-dlna
-Version:       0.10.2
+Version:       0.10.5
 Release:       2%{?dist}
 Summary:       A collection of helpers for building UPnP AV applications
 
