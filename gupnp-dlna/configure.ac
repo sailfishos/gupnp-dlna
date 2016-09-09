@@ -1,6 +1,6 @@
 AC_PREREQ([2.63])
 AC_INIT([gupnp-dlna],
-        [0.10.2],
+        [0.10.5],
         [https://bugzilla.gnome.org/enter_bug.cgi?product=gupnp&component=gupnp-dlna],
         [gupnp-dlna],
         [http://www.gupnp.org/])
@@ -14,6 +14,10 @@ AM_INIT_AUTOMAKE([1.11 tar-ustar no-dist-gzip dist-xz])
 AM_MAINTAINER_MODE([enable])
 
 AM_SILENT_RULES([yes])
+
+dnl AX_REQUIRE_DEFINED([GTK_DOC_CHECK])
+AX_REQUIRE_DEFINED([GOBJECT_INTROSPECTION_CHECK])
+AX_CHECK_ENABLE_DEBUG([yes])
 
 dnl library versioning
 dnl Increase when changing the API
@@ -33,6 +37,9 @@ AC_SUBST(GUPNP_DLNA_VERSION_INFO)
 # Check for programs
 AC_PROG_CC
 AC_HEADER_STDC
+
+AX_IS_RELEASE([git-directory])
+AX_COMPILER_FLAGS([WARN_CFLAGS])
 
 # Initialize libtool
 LT_PREREQ([2.2])
