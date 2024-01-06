@@ -1,21 +1,17 @@
 Name:          gupnp-dlna
-Version:       0.10.5
-Release:       2%{?dist}
+Version:       0.12.0
+Release:       1
 Summary:       A collection of helpers for building UPnP AV applications
-
-Group:         System Environment/Libraries
 License:       LGPLv2+
 URL:           http://www.gupnp.org/
 Source0:       %{name}-%{version}.tar.gz
 
-BuildRequires: glib2-devel
-BuildRequires: gobject-introspection-devel >= 1.36
-BuildRequires: gssdp-devel
+BuildRequires: meson
+BuildRequires: pkgconfig(glib-2.0)
+BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
-BuildRequires: gupnp-devel
-BuildRequires: gupnp-av-devel
-BuildRequires: libxml2-devel
+BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: vala-devel
 BuildRequires: vala-tools
 
@@ -29,7 +25,6 @@ Living Network Alliance) compliant applications using GUPnP.
 
 %package devel
 Summary: Development package for %{name}
-Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
 
 %description devel
@@ -37,18 +32,14 @@ Contains libraries and header files for developing applications that
 use %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/upstream
 
 %build
-%autogen --disable-static
-
-make %{?_smp_mflags} V=1
+%meson -Dgtk_doc=false
+%meson_build
 
 %install
-make install DESTDIR=%{buildroot}
-
-#Remove libtool archives.
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+%meson_install
 
 %post -p /sbin/ldconfig
 
